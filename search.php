@@ -274,7 +274,7 @@ session_start();
 		  
 			<div class="col">
 			  <div class="card shadow-sm">
-				<img style="max-height:300px;" src="<?php echo $row['imageurl'] ?>">
+				<img style="max-height:300px;" src="<?php echo $row['Foto'] ?>">
 				<div class="card-body">
 				  <h3><?php echo $row['name'] ?></h3>
 				  <p class="card-text"><?php echo $row['description'] ?></p>

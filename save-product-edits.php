@@ -1,18 +1,18 @@
 <?php
-			if (empty($_POST['Nome-Produto'] || $_POST['product-description'] || $_POST['product-details'] || $_POST['product-url'] || $_POST['product-price'] || $_POST['product-discounted-price'])) {
+			if (empty($_POST['Nome-Produto'] || $_POST['Descricao'] || $_POST['product-details'] || $_POST['product-url'] || $_POST['Valor-Uni'] || $_POST['product-discounted-price'])) {
 				header('location:edit-product.php');
 			} else {
 			
-			$nameErr = $descriptionErr = $imageURLErr = $productURLErr = "";
-			$NomeProduto = $productdescription = $productdetails = $productprice = $productdiscountedprice = "";
+			$nameErr = $descriptionErr = $FotoErr = $productURLErr = "";
+			$NomeProduto = $Descricao = $productdetails = $ValorUni = $productdiscountedprice = "";
 			
-			$imageURL = $_POST['image-url'];
+			$Foto = $_POST['Foto'];
 			$productURL = $_POST['product-url'];
 			$productcategory = $_POST['product-category'];
 			$productid = $_POST['product-id'];
 			
-			if (!filter_var($imageURL, FILTER_VALIDATE_URL, FILTER_FLAG_HOST_REQUIRED)) {
-				$imageURLErr = "Invalid URL";
+			if (!filter_var($Foto, FILTER_VALIDATE_URL, FILTER_FLAG_HOST_REQUIRED)) {
+				$FotoErr = "Invalid URL";
 			}
 			
 			if (!filter_var($productURL, FILTER_VALIDATE_URL, FILTER_FLAG_HOST_REQUIRED)) {
@@ -20,12 +20,12 @@
 			}
 			
 			$NomeProduto = test_input($_POST["Nome-Produto"]);
-			$productdescription = test_input($_POST["product-description"]);
+			$Descricao = test_input($_POST["Descricao"]);
 			$productdetails = test_input($_POST["product-details"]);
-			$productprice = test_input($_POST["product-price"]);
+			$ValorUni = test_input($_POST["Valor-Uni"]);
 			$productdiscountedprice = test_input($_POST["product-discounted-price"]);
 			
-			if ($imageURLErr == "" && $productURLErr == "") {
+			if ($FotoErr == "" && $productURLErr == "") {
 			
 				$currentemail = $_COOKIE['seller-email'];
 				
@@ -36,7 +36,7 @@
 				  die("Connection failed: " . mysqli_connect_error());
 				}
 
-				$sql = "UPDATE products SET name='$NomeProduto', imageurl='$imageURL', description='$productdescription', details='$productdetails', link='$productURL', price='$productprice', discountedprice='$productdiscountedprice', category='$productcategory' WHERE id='$productid'";
+				$sql = "UPDATE products SET name='$NomeProduto', Foto='$Foto', description='$Descricao', details='$productdetails', link='$productURL', price='$ValorUni', discountedprice='$productdiscountedprice', category='$productcategory' WHERE id='$productid'";
 
 				if (mysqli_query($conn, $sql)) {
 				  echo "Product details updated successfully";

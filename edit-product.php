@@ -121,13 +121,13 @@ session_start();
 			  </div>
 			  
 			  <div class="form-floating mb-3">
-				<input type="url" name="image-url" value="<?php echo $articlecek['imageurl']; ?>" class="form-control" id="floatingInput" placeholder="Image URL">
+				<input type="url" name="Foto" value="<?php echo $articlecek['Foto']; ?>" class="form-control" id="floatingInput" placeholder="Image URL">
 				<label for="floatingPInput">Image URL</label>
-				<span style="color:red;"><?php echo $imageURLErr;?></span>
+				<span style="color:red;"><?php echo $FotoErr;?></span>
 			  </div>
 			  
 			  <div class="form-floating mb-3">
-				<input required type="text" name="product-description" value="<?php echo $articlecek['description']; ?>" class="form-control" id="floatingInput" placeholder="Short Description">
+				<input required type="text" name="Descricao" value="<?php echo $articlecek['description']; ?>" class="form-control" id="floatingInput" placeholder="Short Description">
 				<label for="floatingInput">Short Description</label>
 				<span style="color:red;"><?php echo $descriptionErr;?></span>
 			  </div>
@@ -145,7 +145,7 @@ session_start();
 			  </div>
 			  
 			  <div class="form-floating mb-3">
-				<input required step="0.01" type="number" name="product-price" value="<?php echo $articlecek['price']; ?>" class="form-control" id="floatingInput" placeholder="Product Normal Price">
+				<input required step="0.01" type="number" name="Valor-Uni" value="<?php echo $articlecek['price']; ?>" class="form-control" id="floatingInput" placeholder="Product Normal Price">
 				<label for="floatingInput">Product Normal Price</label>
 			  </div>
 			  

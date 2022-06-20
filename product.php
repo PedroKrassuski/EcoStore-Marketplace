@@ -265,7 +265,7 @@ session_start();
 			<div class="container col-xxl-8 px-4 py-5">
 				<div class="row flex-lg-row align-items-center g-5 py-5">
 				  <div class="col-10 col-sm-8 col-lg-6">
-					<img src="<?php echo $row['imageurl'] ?>" class="d-block mx-lg-auto img-fluid" alt="<?php echo $row['name'] ?>" width="700" height="500" loading="lazy">
+					<img src="<?php echo $row['Foto'] ?>" class="d-block mx-lg-auto img-fluid" alt="<?php echo $row['name'] ?>" width="700" height="500" loading="lazy">
 				  </div>
 				  <?php $_SESSION['add-application-seller-email'] = $row['selleremail']; ?>
 				  <div class="col-lg-6">

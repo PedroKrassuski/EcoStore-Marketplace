@@ -262,13 +262,13 @@ p-4 p-md-5 border rounded-3 bg-light
 			  </div>
 			  
 			  <div class="form-floating mb-3">
-				<input type="url" name="image-url" value="" class="form-control" id="floatingInput" placeholder="Image URL">
+				<input type="url" name="Foto" value="" class="form-control" id="floatingInput" placeholder="Image URL">
 				<label for="floatingPInput">Image URL</label>
-				<span style="color:red;"><?php echo $imageURLErr;?></span>
+				<span style="color:red;"><?php echo $FotoErr;?></span>
 			  </div>
 			  
 			  <div class="form-floating mb-3">
-				<input type="text" name="product-description" value="" class="form-control" id="floatingInput" placeholder="Short Description">
+				<input type="text" name="Descricao" value="" class="form-control" id="floatingInput" placeholder="Short Description">
 				<label for="floatingInput">Short Description</label>
 			  </div>
 			  
@@ -285,7 +285,7 @@ p-4 p-md-5 border rounded-3 bg-light
 			  </div>
 			  
 			  <div class="form-floating mb-3">
-				<input step="0.01" type="number" name="product-price" value="" class="form-control" id="floatingInput" placeholder="Product Normal Price">
+				<input step="0.01" type="number" name="Valor-Uni" value="" class="form-control" id="floatingInput" placeholder="Product Normal Price">
 				<label for="floatingInput">Product Normal Price</label>
 			  </div>
 			  
@@ -329,7 +329,7 @@ p-4 p-md-5 border rounded-3 bg-light
 		  
 			<div class="col">
 			  <div class="card shadow-sm">
-				<img style="max-height:300px;" src="<?php echo $articlecek['imageurl'] ?>">
+				<img style="max-height:300px;" src="<?php echo $articlecek['Foto'] ?>">
 				<div class="card-body">
 				  <h3><?php echo $articlecek['name'] ?></h3>
 				  <p class="card-text"><?php echo $articlecek['description'] ?></p>

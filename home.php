@@ -274,7 +274,7 @@ session_start();
 		  
 			<div class="col">
 			  <div class="card shadow-sm">
-				<img style="max-height:300px;" src="<?php echo $articlecek['imageurl'] ?>">
+				<img style="max-height:300px;" src="<?php echo $articlecek['Foto'] ?>">
 				<div class="card-body">
 				  <h3><?php echo $articlecek['name'] ?></h3>
 				  <p class="card-text"><?php echo $articlecek['description'] ?></p>
@@ -340,7 +340,7 @@ session_start();
 		  
 			<div class="col">
 			  <div class="card shadow-sm">
-				<img style="max-height:300px;" src="<?php echo $articlecek['imageurl'] ?>">
+				<img style="max-height:300px;" src="<?php echo $articlecek['Foto'] ?>">
 				<div class="card-body">
 				  <h3><?php echo $articlecek['name'] ?></h3>
 				  <p class="card-text"><?php echo $articlecek['description'] ?></p>

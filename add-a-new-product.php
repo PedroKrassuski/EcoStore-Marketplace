@@ -1,18 +1,18 @@
 <?php
 session_start();
 
-if (empty($_POST['Nome-Produto'] || $_POST['product-description'] || $_POST['product-details'] || $_POST['product-url'] || $_POST['product-price'] || $_POST['product-discounted-price'])) {
+if (empty($_POST['Nome-Produto'] || $_POST['Descricao'] || $_POST['Foto'] || $_POST['Validade'] || $_POST['Valor-Uni'])) {
 	header('location:seller-dashboard.php');
 } else {
 	$email = $_COOKIE['seller-email'];
 	
 	$NomeProduto = $_POST['Nome-Produto'];
-	$imageurl = $_POST['image-url'];
-	$productdescription = $_POST['product-description'];
-	$productdetails = $_POST['product-details'];
-	$producturl = $_POST['product-url'];
-	$productprice = $_POST['product-price'];
-	$productdiscountedprice = $_POST['product-discounted-price'];
+	$Foto = $_POST['Foto'];
+	$Descricao = $_POST['Descricao'];
+	$ValorUni = $_POST['Valor-Uni'];
+	%Validade = $_POST['Validade'];
+
+	
 	$productcategory = $_POST['product-category'];
 
 	$servername = "localhost";
@@ -29,8 +29,8 @@ if (empty($_POST['Nome-Produto'] || $_POST['product-description'] || $_POST['pro
 	}
 	echo "Connected successfully" . "<br>";
 	
-	$sql = "INSERT INTO products (name, imageurl, description, details, link, price, discountedprice, category, selleremail)
-	VALUES ('$NomeProduto', '$imageurl', '$productdescription', '$productdetails', '$producturl', '$productprice', '$productdiscountedprice', '$productcategory', '$email')";
+	$sql = "INSERT INTO products (name, Foto, description, details, link, price, discountedprice, category, selleremail)
+	VALUES ('$NomeProduto', '$Foto', '$Descricao', '$productdetails', '$producturl', '$ValorUni', '$productdiscountedprice', '$productcategory', '$email')";
 
 	if (mysqli_query($conn, $sql)) {
 	  echo "New record created successfully" . "<br>";
