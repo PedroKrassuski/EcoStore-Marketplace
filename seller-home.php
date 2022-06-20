@@ -1,5 +1,5 @@
 <!--
-Seller Dashboard with a form to register and a How It Works section for sellers. A seller login page is on a different page.
+Vendedor Dashboard with a form to register and a How It Works section for Vendedors. A Vendedor login page is on a different page.
 -->
 <?php
 session_start(); 
@@ -8,7 +8,7 @@ session_start();
 <!DOCTYPE HTML>
 <html>
 	<head>
-		<title>FullCashback - Get More Customers on Amazon!</title>
+		<title>DB-EcoStore - Get More Customers on Amazon!</title>
 		<meta charset="utf-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
 		<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
@@ -18,49 +18,49 @@ session_start();
 	
 	<?php
 		// define variables and set to empty values
-		$emailErr = $passwordErr = "";
-		$email = $password = "";
+		$EmailErr = $SenhaErr = "";
+		$Email = $Senha = "";
 
 		if ($_SERVER["REQUEST_METHOD"] == "POST") {
-		  if (empty($_POST["email"])) {
-			$emailErr = "Email is required";
+		  if (empty($_POST["Email"])) {
+			$EmailErr = "Email is required";
 		  } else {
-			$email = test_input($_POST["email"]);
+			$Email = test_input($_POST["Email"]);
 			// check if e-mail address is well-formed
-			if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
-			  $emailErr = "Invalid email format";
+			if (!filter_var($Email)) {
+			  $EmailErr = "Invalid Email format";
 			}
 		  }
 		  
-		  if (empty($_POST["password"])) {
-			$passwordErr = "Password is required";
+		  if (empty($_POST["Senha"])) {
+			$SenhaErr = "Senha is required";
 		  } else {
-			$password = test_input($_POST["password"]);
+			$Senha = test_input($_POST["Senha"]);
 		  }
 		  
-		  if ($emailErr == "" && $passwordErr == "") {
+		  if ($EmailErr == "" && $SenhaErr == "") {
 			$servername = "localhost";
 			$username = "root";
-			$serverpassword = "PASSWORD";
-			$dbname = "fullcashback";
+			$serverSenha = "";
+			$dbname = "DB-EcoStore";
 
 			// Create connection
-			$conn = mysqli_connect($servername, $username, $serverpassword, $dbname);
+			$conn = mysqli_connect($servername, $username, $serverSenha, $dbname);
 
 			// Check connection
 			if (!$conn) {
 			  die("Connection failed: " . mysqli_connect_error());
 			}
 			
-			$s = "SELECT * FROM sellers WHERE email = '$email'";
+			$s = "SELECT * FROM Vendedor WHERE Email = '$Email'";
 			$result = mysqli_query($conn, $s);
 			
 			if (mysqli_num_rows($result) > 0) {
-				$emailErr = "A seller account with that email address is already created. Please use a different email address.";
+				$EmailErr = "A Vendedor account with that Email address is already created. Please use a different Email address.";
 			} else {
-				$_SESSION['email'] = $email;
-				$_SESSION['password'] = $password;
-				header('location:seller-registration.php');
+				$_SESSION['Email'] = $Email;
+				$_SESSION['Senha'] = $Senha;
+				header('location:Vendedor-registration.php');
 				mysqli_close($conn);
 			}
 		  }
@@ -82,14 +82,14 @@ session_start();
         </a>
 
         <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
-		<li><a href="seller-home.php" class="nav-link px-2 text-secondary">Seller Dashboard</a></li>
+		<li><a href="Vendedor-home.php" class="nav-link px-2 text-secondary">Vendedor Dashboard</a></li>
           <li><a href="index.php" class="nav-link px-2 text-white">Home</a></li>
           <li><a href="#how-it-works" class="nav-link px-2 text-white">How It Works</a></li>
           <li><a href="home.php" class="nav-link px-2 text-white">Products</a></li>
         </ul>
 
         <div class="text-end">
-          <a href="seller-login.php"><button type="button" class="btn btn-primary">Seller Login</button></a>
+          <a href="Vendedor-login.php"><button type="button" class="btn btn-primary">Vendedor Login</button></a>
         </div>
       </div>
     </div>
@@ -104,14 +104,14 @@ session_start();
       <div id="sign-up" class="col-md-10 mx-auto col-lg-5">
         <form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>" class="p-4 p-md-5 border rounded-3 bg-light">
           <div class="form-floating mb-3">
-            <input type="email" name="email" value="<?php echo $email;?>" class="form-control" id="floatingInput" placeholder="name@example.com">
+            <input type="Email" name="Email" value="<?php echo $Email;?>" class="form-control" id="floatingInput" placeholder="name@example.com">
             <label for="floatingInput">Email address</label>
-			<span style="color:red;"><?php echo $emailErr;?></span>
+			<span style="color:red;"><?php echo $EmailErr;?></span>
           </div>
           <div class="form-floating mb-3">
-            <input type="password" name="password" value="<?php echo $password;?>" class="form-control" id="floatingPassword" placeholder="Password">
-            <label for="floatingPassword">Password</label>
-			<span style="color:red;"><?php echo $passwordErr;?></span>
+            <input type="Senha" name="Senha" value="<?php echo $Senha;?>" class="form-control" id="floatingSenha" placeholder="Senha">
+            <label for="floatingSenha">Senha</label>
+			<span style="color:red;"><?php echo $SenhaErr;?></span>
           </div>
           <button class="w-100 btn btn-lg btn-primary" type="submit">Sign up</button>
           <hr class="my-4">

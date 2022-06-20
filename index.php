@@ -5,7 +5,7 @@ session_start();
 <!DOCTYPE HTML>
 <html>
 	<head>
-		<title>FullCashback - Get Up To 100% Cashback on Amazon Products!</title>
+		<title>DB-EcoStore - Get Up To 100% Cashback on Amazon Products!</title>
 		<meta charset="utf-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
 		<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
@@ -15,48 +15,48 @@ session_start();
 	
 	<?php
 		// define variables and set to empty values
-		$nameErr = $emailErr = $passwordErr = $paypalErr = "";
-		$name = $email = $password = $paypalusername = "";
+		$nameErr = $EmailErr = $SenhaErr = $paypalErr = "";
+		$name = $Email = $Senha = $paypalusername = "";
 
-		if ($_SERVER["REQUEST_METHOD"] == "POST") {
-		  if (empty($_POST["email"])) {
-			$emailErr = "Email is required";
+		if ($_SERVER["Usuario"] == "POST") {
+		  if (empty($_POST["Email"])) {
+			$EmailErr = "Email is required";
 		  } else {
-			$email = test_input($_POST["email"]);
+			$Email = test_input($_POST["Email"]);
 			// check if e-mail address is well-formed
-			if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
-			  $emailErr = "Invalid email format";
+			if (!filter_var($Email)) {
+			  $EmailErr = "Invalid Email format";
 			}
 		  }
 		  
-		  if (empty($_POST["password"])) {
-			$passwordErr = "Password is required";
+		  if (empty($_POST["Senha"])) {
+			$SenhaErr = "Senha is required";
 		  } else {
-			$password = test_input($_POST["password"]);
+			$Senha = test_input($_POST["Senha"]);
 		  }
 		  
-		  if ($emailErr == "" && $passwordErr == "") {
+		  if ($EmailErr == "" && $SenhaErr == "") {
 			$servername = "localhost";
 			$username = "root";
-			$serverpassword = "PASSWORD";
-			$dbname = "fullcashback";
+			$serverSenha = "";
+			$dbname = "DB-EcoStore";
 
 			// Create connection
-			$conn = mysqli_connect($servername, $username, $serverpassword, $dbname);
+			$conn = mysqli_connect($servername, $username, $serverSenha, $dbname);
 
 			// Check connection
 			if (!$conn) {
 			  die("Connection failed: " . mysqli_connect_error());
 			}
 			
-			$s = "SELECT * FROM users WHERE email = '$email'";
+			$s = "SELECT * FROM Usuario WHERE Email = '$Email'";
 			$result = mysqli_query($conn, $s);
 			
 			if (mysqli_num_rows($result) > 0) {
-				$emailErr = "An account with that email address is already created. Please use a different email address.";
+				$EmailErr = "An account with that Email address is already created. Please use a different Email address.";
 			} else {
-				$_SESSION['email'] = $email;
-				$_SESSION['password'] = $password;
+				$_SESSION['Email'] = $Email;
+				$_SESSION['Senha'] = $Senha;
 				header('location:registration.php');
 				mysqli_close($conn);
 			}
@@ -85,7 +85,7 @@ session_start();
         </ul>
 
         <div class="text-end">
-		  <a href="seller-home.php"><button type="button" class="btn btn-outline-light me-2">Seller Dashboard</button></a>
+		  <a href="Vendedor-home.php"><button type="button" class="btn btn-outline-light me-2">Vendedor Dashboard</button></a>
           <a href="login.php"><button type="button" class="btn btn-primary">Login</button></a>
         </div>
       </div>
@@ -96,19 +96,19 @@ session_start();
     <div class="row align-items-center g-lg-5 py-5">
       <div class="col-lg-7 text-center text-lg-start">
         <h1 class="display-4 fw-bold lh-1 mb-3">Get Up To 100% Cashback on Amazon Products!</h1>
-        <p class="col-lg-10 fs-4">Sellers on Amazon will give you up to 100% cashback for reviewing their products. <b>Sign up now</b> to receive full cashback on hundreds of products!</p>
+        <p class="col-lg-10 fs-4">Vendedors on Amazon will give you up to 100% cashback for reviewing their products. <b>Sign up now</b> to receive full cashback on hundreds of products!</p>
       </div>
       <div id="sign-up" class="col-md-10 mx-auto col-lg-5">
         <form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>" class="p-4 p-md-5 border rounded-3 bg-light">
           <div class="form-floating mb-3">
-            <input type="email" name="email" value="<?php echo $name;?>" class="form-control" id="floatingInput" placeholder="name@example.com">
+            <input type="Email" name="Email" value="<?php echo $name;?>" class="form-control" id="floatingInput" placeholder="name@example.com">
             <label for="floatingInput">Email address</label>
-			<span style="color:red;"><?php echo $emailErr;?></span>
+			<span style="color:red;"><?php echo $EmailErr;?></span>
           </div>
           <div class="form-floating mb-3">
-            <input type="password" name="password" value="<?php echo $password;?>" class="form-control" id="floatingPassword" placeholder="Password">
-            <label for="floatingPassword">Password</label>
-			<span style="color:red;"><?php echo $passwordErr;?></span>
+            <input type="Senha" name="Senha" value="<?php echo $Senha;?>" class="form-control" id="floatingSenha" placeholder="Senha">
+            <label for="floatingSenha">Senha</label>
+			<span style="color:red;"><?php echo $SenhaErr;?></span>
           </div>
           <button class="w-100 btn btn-lg btn-primary" type="submit">Sign up</button>
           <hr class="my-4">

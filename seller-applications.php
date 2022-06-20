@@ -5,7 +5,7 @@ session_start();
 <!DOCTYPE HTML>
 <html>
 	<head>
-		<title>FullCashback Seller Product Applications - Get Full Cashback!</title>
+		<title>DB-EcoStore Vendedor Product Applications - Get Full Cashback!</title>
 		<meta charset="utf-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
 		<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
@@ -67,8 +67,8 @@ session_start();
 	<body>
 	
 	<?php
-		if (!isset($_COOKIE['seller-email'])) {
-			header('location:seller-login.php');
+		if (!isset($_COOKIE['Vendedor-Email'])) {
+			header('location:Vendedor-login.php');
 		}
 		
 		function test_input($data) {
@@ -87,7 +87,7 @@ session_start();
         </a>
 
         <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
-          <li><a href="seller-dashboard.php" class="nav-link px-2 link-secondary">Seller Dashboard</a></li>
+          <li><a href="Vendedor-dashboard.php" class="nav-link px-2 link-secondary">Vendedor Dashboard</a></li>
         </ul>
 
 		<form method="GET" action="search.php" class="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3">
@@ -95,17 +95,17 @@ session_start();
         </form>
 		
 		<?php
-			if (isset($_COOKIE['seller-email'])) {
+			if (isset($_COOKIE['Vendedor-Email'])) {
 		?>
 
         <div class="dropdown">
 		  <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
-			<?php echo $_COOKIE['seller-email']; ?>
+			<?php echo $_COOKIE['Vendedor-Email']; ?>
 		  </button>
 		  <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
 			<li><a class="dropdown-item" onclick="deleteCookie();">Log Out</a></li>
-			<li><a class="dropdown-item" href="seller-dashboard.php">Edit Account Details</a></li>
-			<li><a class="dropdown-item" href="seller-dashboard.php">Seller Dashboard</a></li>
+			<li><a class="dropdown-item" href="Vendedor-dashboard.php">Edit Account Details</a></li>
+			<li><a class="dropdown-item" href="Vendedor-dashboard.php">Vendedor Dashboard</a></li>
 			<li><a class="dropdown-item" href="#">Payments</a></li>
 		  </ul>
 		</div>
@@ -144,24 +144,24 @@ session_start();
 
 		  
 		  <?php
-			$selleremail = $_COOKIE['seller-email'];
+			$VendedorEmail = $_COOKIE['Vendedor-Email'];
 			$productids = array();
 			$purchaseallowed = array();
-			$buyeremails = array();
+			$buyerEmails = array();
 				
 			$servername = "localhost";
 			$username = "root";
-			$password = "PASSWORD";
-			$dbname = "fullcashback";
+			$Senha = "Senha";
+			$dbname = "DB-EcoStore";
 
 			// Create connection
-			$conn = new mysqli($servername, $username, $password, $dbname);
+			$conn = new mysqli($servername, $username, $Senha, $dbname);
 			// Check connection
 			if ($conn->connect_error) {
 			  die("Connection failed: " . $conn->connect_error);
 			}
 
-			$sql = "SELECT * FROM applications WHERE selleremail='$selleremail'";
+			$sql = "SELECT * FROM applications WHERE VendedorEmail='$VendedorEmail'";
 			$result = $conn->query($sql);
 
 			if ($result->num_rows > 0) {
@@ -169,7 +169,7 @@ session_start();
 			  while($row = $result->fetch_assoc()) {
 				  array_push($productids, $row['productid']);
 				  $purchaseallowed[$row['productid']] = $row['purchaseallowed'];
-				  $buyeremails[$row['productid']] = $row['useremail'];
+				  $buyerEmails[$row['productid']] = $row['userEmail'];
 			  }
 			} else {
 			  echo "No product applications to approve.";
@@ -178,7 +178,7 @@ session_start();
 			//$conn->close();
 			
 			// Create connection
-			$conn_ = new mysqli($servername, $username, $password, $dbname);
+			$conn_ = new mysqli($servername, $username, $Senha, $dbname);
 			// Check connection
 			if ($conn_->connect_error) {
 			  die("Connection failed: " . $conn_->connect_error);
@@ -205,10 +205,10 @@ session_start();
 
 
     <tr>
-      <td><?php echo substr($buyeremails[$row_['id']], 0, 5)."*****"; ?></td>
+      <td><?php echo substr($buyerEmails[$row_['id']], 0, 5)."*****"; ?></td>
 	  <td><?php echo $row_['name']; ?></td>
       <td><?php echo $purchaseallowed[$row_['id']] ?></td>
-	  <?php $_SESSION["buyer-email"] = $buyeremails[$row_['id']]; ?>
+	  <?php $_SESSION["buyer-Email"] = $buyerEmails[$row_['id']]; ?>
 	  <form method="POST" action="approve-application.php">
 		<input type="hidden" name="productid" value="<?php echo $row_['id'] ?>">
 		<td><button type="submit" class="btn btn-primary">Approve</button></td>
@@ -242,8 +242,8 @@ session_start();
 	
 	<script>
 		function deleteCookie() {
-			document.cookie = "seller-email=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
-			document.cookie = "seller-password=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+			document.cookie = "Vendedor-Email=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+			document.cookie = "Vendedor-Senha=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
 			location.reload();
 		}
 	</script>

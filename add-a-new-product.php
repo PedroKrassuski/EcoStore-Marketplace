@@ -1,10 +1,10 @@
 <?php
 session_start();
 
-if (empty($_POST['Nome-Produto'] || $_POST['Descricao'] || $_POST['Foto'] || $_POST['Validade'] || $_POST['Valor-Uni'])) {
-	header('location:seller-dashboard.php');
+if (empty($_POST['Nome-Produto'] || $_POST['Descricao'] || $_POST['Foto']|| $_POST['Valor-Uni'] | $_POST['Validade'] |)) {
+	header('location:Vendedor-dashboard.php');
 } else {
-	$email = $_COOKIE['seller-email'];
+	$Email = $_COOKIE['Email'];
 	
 	$NomeProduto = $_POST['Nome-Produto'];
 	$Foto = $_POST['Foto'];
@@ -17,11 +17,11 @@ if (empty($_POST['Nome-Produto'] || $_POST['Descricao'] || $_POST['Foto'] || $_P
 
 	$servername = "localhost";
 	$username = "root";
-	$password = "";
+	$Senha = "";
 	$dbname = "DB-EcoStore";
 
 	// Create connection
-	$conn = mysqli_connect($servername, $username, $password, $dbname);
+	$conn = mysqli_connect($servername, $username, $Senha, $dbname);
 
 	// Check connection
 	if (!$conn) {
@@ -29,8 +29,8 @@ if (empty($_POST['Nome-Produto'] || $_POST['Descricao'] || $_POST['Foto'] || $_P
 	}
 	echo "Connected successfully" . "<br>";
 	
-	$sql = "INSERT INTO products (name, Foto, description, details, link, price, discountedprice, category, selleremail)
-	VALUES ('$NomeProduto', '$Foto', '$Descricao', '$productdetails', '$producturl', '$ValorUni', '$productdiscountedprice', '$productcategory', '$email')";
+	$sql = "INSERT INTO Produto (name, Foto, description, details, link, price, discountedprice, category, VendedorEmail)
+	VALUES ('$NomeProduto', '$Foto', '$Descricao', '$productdetails', '$producturl', '$ValorUni', '$productdiscountedprice', '$productcategory', '$Email'.'$')";
 
 	if (mysqli_query($conn, $sql)) {
 	  echo "New record created successfully" . "<br>";
@@ -41,6 +41,6 @@ if (empty($_POST['Nome-Produto'] || $_POST['Descricao'] || $_POST['Foto'] || $_P
 	//Close the connection
 	mysqli_close($conn);
 	
-	header('location:seller-dashboard.php');
+	header('location:Vendedor-dashboard.php');
 }
 ?>

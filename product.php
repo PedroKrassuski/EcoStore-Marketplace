@@ -5,7 +5,7 @@ session_start();
 <!DOCTYPE HTML>
 <html>
 	<head>
-		<title>FullCashback Product - Get Full Cashback!</title>
+		<title>DB-EcoStore Product - Get Full Cashback!</title>
 		<meta charset="utf-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
 		<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
@@ -67,44 +67,43 @@ session_start();
 	<body>
 	
 	<?php
-		if ($_SERVER["REQUEST_METHOD"] == "POST") {
+		if ($_SERVER["Produto"] == "POST") {
 			
-			$emailErr = $passwordErr = $paypalErr = "";
-			$email = $password = $paypalusername = "";
+			$EmailErr = $SenhaErr = $paypalErr = "";
+			$Email = $Senha = $paypalusername = "";
 			
-			if (empty($_POST["email"])) {
-				$emailErr = "Email is required";
+			if (empty($_POST["Email"])) {
+				$EmailErr = "Email is required";
 			  } else {
-				$email = test_input($_POST["email"]);
+				$Email = test_input($_POST["Email"]);
 				// check if e-mail address is well-formed
-				if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
-				  $emailErr = "Invalid email format";
+				if (!filter_var($Email)) {
+				  $EmailErr = "Invalid Email format";
 				}
 			  }
 			
-			if (empty($_POST["password"])) {
-				$passwordErr = "Password is required";
+			if (empty($_POST["Senha"])) {
+				$SenhaErr = "Senha is required";
 			} else {
-				$password = test_input($_POST["password"]);
+				$Senha = test_input($_POST["Senha"]);
 			}
 			
-			$paypalusername = test_input($_POST["paypalusername"]);
 			
-			if ($emailErr == "" && $passwordErr == "") {
+			if ($EmailErr == "" && $SenhaErr == "") {
 			
-				$currentemail = $_COOKIE['email'];
-				//$email = $_POST['email'];
-				//$password = $_POST['password'];
+				$currentEmail = $_COOKIE['Email'];
+				//$Email = $_POST['Email'];
+				//$Senha = $_POST['Senha'];
 				//$paypalusername = $_POST['paypalusername'];
 				
 				// Create connection
-				$conn = mysqli_connect("localhost", "root", "PASSWORD", "fullcashback");
+				$conn = mysqli_connect("localhost", "root", "", "DB-EcoStore");
 				// Check connection
 				if (!$conn) {
 				  die("Connection failed: " . mysqli_connect_error());
 				}
 
-				$sql = "UPDATE users SET email='$email', password='$password', paypalusername='$paypalusername' WHERE email='$currentemail'";
+				$sql = "UPDATE Usuario SET Email='$Email', Senha='$Senha' WHERE Email='$currentEmail'";
 
 				if (mysqli_query($conn, $sql)) {
 				  echo "Account details updated successfully";
@@ -125,14 +124,14 @@ session_start();
 	?>
 	
 	<?php
-		if (isset($_COOKIE['email'])) {
-			$email = $_COOKIE['email'];
+		if (isset($_COOKIE['Email'])) {
+			$Email = $_COOKIE['Email'];
 			
-			$db = new PDO("mysql:host=localhost;dbname=fullcashback","root","PASSWORD");
+			$db = new PDO("mysql:host=localhost;dbname=db-ecostore","root","");
 
-			$articlesor = $db->prepare("SELECT * FROM users WHERE email=:email");
+			$articlesor = $db->prepare("SELECT * FROM Usuario WHERE Email=:Email");
 			$articlesor->execute(array(
-				'email' => $email
+				'Email' => $Email
 			));
 				  
 			while($articlecek=$articlesor->fetch(PDO::FETCH_ASSOC)) {
@@ -150,30 +149,30 @@ session_start();
 			<h1>Edit Your Account Details</h1>
 			<form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>" class="p-4 p-md-5 border rounded-3 bg-light">
 			  <div class="form-floating mb-3">
-				<input type="email" name="email" value="<?php echo $articlecek['email'];?>" class="form-control" id="floatingInput" placeholder="name@example.com">
+				<input type="Email" name="Email" value="<?php echo $articlecek['Email'];?>" class="form-control" id="floatingInput" placeholder="name@example.com">
 				<label for="floatingInput">Email address</label>
-				<span style="color:red;"><?php echo $emailErr;?></span>
+				<span style="color:red;"><?php echo $EmailErr;?></span>
 			  </div>
 			  <div class="form-floating mb-3">
-				<input type="password" name="password" value="<?php echo $articlecek['password'];?>" class="form-control" id="floatingPassword" placeholder="Password">
-				<label for="floatingPassword">Password</label>
-				<span style="color:red;"><?php echo $passwordErr;?></span>
+				<input type="Senha" name="Senha" value="<?php echo $articlecek['Senha'];?>" class="form-control" id="floatingSenha" placeholder="Senha">
+				<label for="floatingSenha">Senha</label>
+				<span style="color:red;"><?php echo $SenhaErr;?></span>
 			  </div>
 			  <div class="form-floating mb-3">
 				<input type="text" name="paypalusername" value="<?php echo $articlecek['paypalusername'];?>" class="form-control" id="floatingInput" placeholder="PayPal Username">
-				<label for="floatingPassword">PayPal Username</label>
+				<label for="floatingSenha">PayPal Username</label>
 				<span style="color:red;"><?php echo $paypalErr;?></span>
 			  </div>
 			  <div class="form-floating mb-3 input-group">
-				<input type="text" disabled name="emailverified" value="<?php echo $articlecek['emailverified'];?>" class="form-control" id="floatingInput" placeholder="Email Verified">
-				<label for="floatingPassword">Email Verified</label>
+				<input type="text" disabled name="Emailverified" value="<?php echo $articlecek['Emailverified'];?>" class="form-control" id="floatingInput" placeholder="Email Verified">
+				<label for="floatingSenha">Email Verified</label>
 				<?php
-					if ($articlecek['emailverified'] == "false") {
+					if ($articlecek['Emailverified'] == "false") {
 				?>
-				<a href="send-email.php?email=<?php echo $articlecek['email'] ?>"><button class="btn btn-outline-secondary">Verify Email</button></a><br>
+				<a href="send-Email.php?Email=<?php echo $articlecek['Email'] ?>"><button class="btn btn-outline-secondary">Verify Email</button></a><br>
 				<?php } ?>
 			  </div>
-			  <span style="color:red;"><?php echo $emailVerifiedErr;?></span>
+			  <span style="color:red;"><?php echo $EmailVerifiedErr;?></span>
 			  <button class="w-100 btn btn-lg btn-primary" type="submit">Save Changes</button>
 			</form>
 			
@@ -204,12 +203,12 @@ session_start();
         </form>
 		
 		<?php
-			if (isset($_COOKIE['email'])) {
+			if (isset($_COOKIE['Email'])) {
 		?>
 
         <div class="dropdown">
 		  <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
-			<?php echo $_COOKIE['email']; ?>
+			<?php echo $_COOKIE['Email']; ?>
 		  </button>
 		  <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
 			<li><a class="dropdown-item" onclick="deleteCookie();">Log Out</a></li>
@@ -233,7 +232,7 @@ session_start();
 		  <?php
 			$productid = $_GET['id'];
 		  
-			//$db = new PDO("mysql:host=localhost;dbname=fullcashback","root","PASSWORD");
+			//$db = new PDO("mysql:host=localhost;dbname=DB-EcoStore","root","Senha");
 
 			//$articlesor = $db->prepare("SELECT * FROM products WHERE name LIKE '% + name + %'");
 			//$articlesor->execute(array(
@@ -244,17 +243,17 @@ session_start();
 				
 			$servername = "localhost";
 			$username = "root";
-			$password = "PASSWORD";
-			$dbname = "fullcashback";
+			$Senha = "";
+			$dbname = "DB-EcoStore";
 
 			// Create connection
-			$conn = new mysqli($servername, $username, $password, $dbname);
+			$conn = new mysqli($servername, $username, $Senha, $dbname);
 			// Check connection
 			if ($conn->connect_error) {
 			  die("Connection failed: " . $conn->connect_error);
 			}
 
-			$sql = "SELECT * FROM products WHERE id='$productid'";
+			$sql = "SELECT * FROM Produto WHERE id='$CodProduto'";
 			$result = $conn->query($sql);
 
 			if ($result->num_rows > 0) {
@@ -267,7 +266,7 @@ session_start();
 				  <div class="col-10 col-sm-8 col-lg-6">
 					<img src="<?php echo $row['Foto'] ?>" class="d-block mx-lg-auto img-fluid" alt="<?php echo $row['name'] ?>" width="700" height="500" loading="lazy">
 				  </div>
-				  <?php $_SESSION['add-application-seller-email'] = $row['selleremail']; ?>
+				  <?php $_SESSION['add-application-Vendedor-Email'] = $row['VendedorEmail']; ?>
 				  <div class="col-lg-6">
 					<h1 class="display-5 fw-bold lh-1 mb-3"><?php echo $row['name'] ?></h1>
 					<p class="lead"><?php echo $row['description'] ?></p>
@@ -296,8 +295,8 @@ session_start();
 	
 	<script>
 		function deleteCookie() {
-			document.cookie = "email=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
-			document.cookie = "password=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+			document.cookie = "Email=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+			document.cookie = "Senha=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
 			location.reload();
 		}
 		

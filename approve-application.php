@@ -3,19 +3,19 @@ session_start();
 
 $productid = $_POST['productid'];
 
-if (empty($_POST['productid']) || empty($_COOKIE['seller-email'])) {
-	header('location:seller-applications.php');
+if (empty($_POST['productid']) || empty($_COOKIE['Vendedor-Email'])) {
+	header('location:Vendedor-applications.php');
 } else {
-	$email = $_COOKIE['seller-email'];
-	$buyeremail = $_SESSION['buyer-email'];
+	$Email = $_COOKIE['Vendedor-Email'];
+	$buyerEmail = $_SESSION['buyer-Email'];
 
 	$servername = "localhost";
 	$username = "root";
-	$password = "PASSWORD";
-	$dbname = "fullcashback";
+	$Senha = "Senha";
+	$dbname = "DB-Ecostore";
 
 	// Create connection
-	$conn = mysqli_connect($servername, $username, $password, $dbname);
+	$conn = mysqli_connect($servername, $username, $Senha, $dbname);
 
 	// Check connection
 	if (!$conn) {
@@ -23,23 +23,11 @@ if (empty($_POST['productid']) || empty($_COOKIE['seller-email'])) {
 	}
 	echo "Connected successfully" . "<br>";
 	
-	$s = "SELECT * FROM applications WHERE productid = '$productid' && useremail = '$buyeremail' && selleremail = '$email'";
+	$s = "SELECT * FROM Produto WHERE CodProduto = '$CodProduto' && Email = '$Email';
 	$result = mysqli_query($conn, $s);
 			
-	if (mysqli_num_rows($result) > 0) {
-	
-		$sql = "UPDATE applications SET purchaseallowed='true' WHERE productid = '$productid' && useremail = '$buyeremail' && selleremail = '$email'";
-
-		if (mysqli_query($conn, $sql)) {
-		  echo "Record updated successfully" . "<br>";
-		} else {
-		  echo "Error: " . $sql . "<br>" . mysqli_error($conn);
-		}
-	
-	}
-
 	//Close the connection
 	mysqli_close($conn);
-	header('location:seller-applications.php');
+	header('location:Vendedor-applications.php');
 }
 ?>

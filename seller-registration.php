@@ -1,19 +1,19 @@
 <?php
 session_start();
 
-if (empty($_SESSION['email'])) {
-	header('location:seller-home.php');
+if (empty($_SESSION['Email'])) {
+	header('location:Vendedor-home.php');
 } else {
-	$email = $_SESSION['email'];
-	$userpassword = $_SESSION['password'];
+	$Email = $_SESSION['Email'];
+	$userSenha = $_SESSION['Senha'];
 
 	$servername = "localhost";
 	$username = "root";
-	$password = "PASSWORD";
-	$dbname = "fullcashback";
+	$Senha = "";
+	$dbname = "DB-EcoStore";
 
 	// Create connection
-	$conn = mysqli_connect($servername, $username, $password, $dbname);
+	$conn = mysqli_connect($servername, $username, $Senha, $dbname);
 
 	// Check connection
 	if (!$conn) {
@@ -21,8 +21,8 @@ if (empty($_SESSION['email'])) {
 	}
 	echo "Connected successfully" . "<br>";
 	
-	$sql = "INSERT INTO sellers (email, password)
-	VALUES ('$email', '$userpassword')";
+	$sql = "INSERT INTO Vendedors (Email, Senha)
+	VALUES ('$Email', '$Senha')";
 
 	if (mysqli_query($conn, $sql)) {
 	  echo "New record created successfully" . "<br>";
@@ -33,9 +33,9 @@ if (empty($_SESSION['email'])) {
 	//Close the connection
 	mysqli_close($conn);
 	
-	setcookie("seller-email", $_SESSION['email'], time() + (86400 * 30), "/");
-	setcookie("seller-password", $_SESSION['password'], time() + (86400 * 30), "/");
+	setcookie("Email", $_SESSION['Email'], time() + (86400 * 30), "/");
+	setcookie("Senha", $_SESSION['Senha'], time() + (86400 * 30), "/");
 	
-	header('location:seller-dashboard.php');
+	header('location:Vendedor-dashboard.php');
 }
 ?>

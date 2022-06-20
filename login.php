@@ -5,7 +5,7 @@ session_start();
 <!DOCTYPE html>
 <html>
 <head>
-	<title>FullCashback Login</title>
+	<title>DB-EcoStore Login</title>
 	<link href="https://getbootstrap.com/docs/5.0/examples/sign-in/signin.css" rel="stylesheet">
 	<link rel="canonical" href="https://getbootstrap.com/docs/5.0/examples/sign-in/">
 	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
@@ -30,57 +30,57 @@ session_start();
 
 <?php
 		// define variables and set to empty values
-		$loginemailErr = $loginpasswordErr = "";
-		$loginemail = $loginpassword = "";
+		$loginEmailErr = $loginSenhaErr = "";
+		$loginEmail = $loginSenha = "";
 		
-		if (isset($_COOKIE['email']) && isset($_COOKIE['password'])) {
-			$loginemail = $_COOKIE['email'];
-			$loginpassword = $_COOKIE['password'];
+		if (isset($_COOKIE['Email']) && isset($_COOKIE['Senha'])) {
+			$loginEmail = $_COOKIE['Email'];
+			$loginSenha = $_COOKIE['Senha'];
 		}
 
-		if ($_SERVER["REQUEST_METHOD"] == "POST") {
-		  if (empty($_POST["loginemail"])) {
-			$loginemailErr = "Email is required";
+		if ($_SERVER["Usuario"] == "POST") {
+		  if (empty($_POST["loginEmail"])) {
+			$loginEmailErr = "Email is required";
 		  } else {
-			$loginemail = test_input($_POST["loginemail"]);
+			$loginEmail = test_input($_POST["loginEmail"]);
 			// check if e-mail address is well-formed
-			if (!filter_var($loginemail, FILTER_VALIDATE_EMAIL)) {
-			  $loginemailErr = "Invalid email format";
+			if (!filter_var($loginEmail)) {
+			  $loginEmailErr = "Invalid Email format";
 			}
 		  }
 		  
-		  if (empty($_POST["loginpassword"])) {
-			$loginpasswordErr = "Password is required";
+		  if (empty($_POST["loginSenha"])) {
+			$loginSenhaErr = "Senha is required";
 		  } else {
-			$loginpassword = test_input($_POST["loginpassword"]);
+			$loginSenha = test_input($_POST["loginSenha"]);
 		  }
 		  
-		  if ($loginemailErr == "" && $loginpasswordErr == "") {
+		  if ($loginEmailErr == "" && $loginSenhaErr == "") {
 			$servername = "localhost";
 			$username = "root";
-			$serverpassword = "PASSWORD";
-			$dbname = "fullcashback";
+			$serverSenha = "";
+			$dbname = "DB-EcoStore";
 
 			// Create connection
-			$conn = mysqli_connect($servername, $username, $serverpassword, $dbname);
+			$conn = mysqli_connect($servername, $username, $serverSenha, $dbname);
 
 			// Check connection
 			if (!$conn) {
 			  die("Connection failed: " . mysqli_connect_error());
 			}
 			
-			$s = "SELECT * FROM users WHERE email = '$loginemail' && password = '$loginpassword'";
+			$s = "SELECT * FROM Usuario WHERE Email = '$loginEmail' && Senha = '$loginSenha'";
 			$result = mysqli_query($conn, $s);
 			
 			if (mysqli_num_rows($result) > 0) {
-				//$_SESSION['loggedinemail'] = $loginemail;
-				setcookie("email", $_POST['loginemail'], time() + (86400 * 30), "/");
-				setcookie("password", $_POST['loginpassword'], time() + (86400 * 30), "/");
+				//$_SESSION['loggedinEmail'] = $loginEmail;
+				setcookie("Email", $_POST['loginEmail'], time() + (86400 * 30), "/");
+				setcookie("Senha", $_POST['loginSenha'], time() + (86400 * 30), "/");
 				header('location:home.php');
 				mysqli_close($conn);
 			} else {
-				$loginemailErr = "Wrong login details!";
-				$loginpasswordErr = "Wrong login details!";
+				$loginEmailErr = "Wrong login details!";
+				$loginSenhaErr = "Wrong login details!";
 			}
 		  }
 		}
@@ -111,18 +111,18 @@ session_start();
 		</div>
 	</header>
 
-	<h1 class="h3 mb-3 fw-normal">FullCashback</h1>
+	<h1 class="h3 mb-3 fw-normal">DB-EcoStore</h1>
 	<h1 class="h3 mb-3 fw-normal">Log In</h1>
 	<form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>">
 		<div class="form-floating">
-		  <input type="email" name="loginemail" value="<?php echo $loginemail;?>" class="form-control" id="floatingInput" placeholder="name@example.com">
+		  <input type="Email" name="loginEmail" value="<?php echo $loginEmail;?>" class="form-control" id="floatingInput" placeholder="name@example.com">
 		  <label for="floatingInput">Email address</label>
-		  <span style="color:red;"><?php echo $loginemailErr;?></span>
+		  <span style="color:red;"><?php echo $loginEmailErr;?></span>
 		</div>
 		<div class="form-floating">
-		  <input type="password" name="loginpassword" value="<?php echo $loginpassword;?>" class="form-control" id="floatingPassword" placeholder="Password">
-		  <label for="floatingPassword">Password</label>
-		  <span style="color:red;"><?php echo $loginpasswordErr;?></span>
+		  <input type="Senha" name="loginSenha" value="<?php echo $loginSenha;?>" class="form-control" id="floatingSenha" placeholder="Senha">
+		  <label for="floatingSenha">Senha</label>
+		  <span style="color:red;"><?php echo $loginSenhaErr;?></span>
 		</div>
 		<button class="w-100 btn btn-lg btn-primary" type="submit" name="submit">Log in</button>
 	</form>
