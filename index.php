@@ -92,65 +92,6 @@ session_start();
     </div>
   </header>
   
-  <div class="container col-xl-10 col-xxl-8 px-4 py-5">
-    <div class="row align-items-center g-lg-5 py-5">
-      <div class="col-lg-7 text-center text-lg-start">
-        <h1 class="display-4 fw-bold lh-1 mb-3">Get Up To 100% Cashback on Amazon Products!</h1>
-        <p class="col-lg-10 fs-4">Vendedors on Amazon will give you up to 100% cashback for reviewing their products. <b>Sign up now</b> to receive full cashback on hundreds of products!</p>
-      </div>
-      <div id="sign-up" class="col-md-10 mx-auto col-lg-5">
-        <form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>" class="p-4 p-md-5 border rounded-3 bg-light">
-          <div class="form-floating mb-3">
-            <input type="Email" name="Email" value="<?php echo $name;?>" class="form-control" id="floatingInput" placeholder="name@example.com">
-            <label for="floatingInput">Email address</label>
-			<span style="color:red;"><?php echo $EmailErr;?></span>
-          </div>
-          <div class="form-floating mb-3">
-            <input type="Senha" name="Senha" value="<?php echo $Senha;?>" class="form-control" id="floatingSenha" placeholder="Senha">
-            <label for="floatingSenha">Senha</label>
-			<span style="color:red;"><?php echo $SenhaErr;?></span>
-          </div>
-          <button class="w-100 btn btn-lg btn-primary" type="submit">Sign up</button>
-          <hr class="my-4">
-          <small class="text-muted">By clicking Sign up, you agree to the terms of use.</small>
-        </form>
-      </div>
-    </div>
-  </div>
-	
-		<!--
-		PayPal Username: <input type="text" name="paypalusername" value="<?php echo $paypalusername;?>">
-		<span style="color:red;">* <?php echo $paypalErr;?></span> -->
-
-<div class="container px-4 py-5" id="featured-3">
-    <h2 id="how-it-works" class="pb-2 border-bottom">How It Works</h2>
-    <div class="row g-4 py-5 row-cols-1 row-cols-lg-3">
-      <div class="feature col">
-        <div class="feature-icon bg-primary bg-gradient">
-          <svg class="bi" width="1em" height="1em"><use xlink:href="#collection"></use></svg>
-        </div>
-        <h2>Explore our Products</h2>
-        <p>Explore the range of products that we offer cashback on. We offer many products from many categories including electronics, toys, makeup & beauty and many more.</p>
-      </div>
-      <div class="feature col">
-        <div class="feature-icon bg-primary bg-gradient">
-          <svg class="bi" width="1em" height="1em"><use xlink:href="#people-circle"></use></svg>
-        </div>
-        <h2>Apply, Buy & Review</h2>
-        <p>Apply to buy the product you want. Only a limited number of people can apply to buy a product so be quick. After you buy the product, leave a review on Amazon.</p>
-      </div>
-      <div class="feature col">
-        <div class="feature-icon bg-primary bg-gradient">
-          <svg class="bi" width="1em" height="1em"><use xlink:href="#toggles2"></use></svg>
-        </div>
-        <h2>Get Cashback</h2>
-        <p>After your review is verified, you will get up to 100% cashback to your PayPal account!</p>
-        <a href="#sign-up" class="icon-link">
-          Sign Up Now >
-        </a>
-      </div>
-    </div>
-  </div>
-	
+  
 	</body>
 </html>
